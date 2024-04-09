@@ -21,7 +21,8 @@ import { optional, z } from "zod"
 
 import { nanoid } from 'nanoid'
 import { useModal } from "@/store/modal";
-import { useBoardStore } from "@/store/board";
+import { useBoardStore, useCategoryStore } from "@/store/board";
+import { useAuthStore } from "@/store/auth";
 
 const formSchema = z.object({
     title: z.string().min(6, {
@@ -31,7 +32,9 @@ const formSchema = z.object({
 })
 const CreateBoard = () => {
     const { isOpen, closeModal } = useModal();
-    const { addBoard, addCategory } = useBoardStore();
+    const { email } = useAuthStore();
+    const { addBoard } = useBoardStore();
+    const { addCategory } = useCategoryStore();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -43,11 +46,12 @@ const CreateBoard = () => {
     function onSubmit(values: z.infer<typeof formSchema>) {
         const board = {
             board_id: nanoid(),
+            email_id: email as string,
             title: values.title,
             desc: values.description
         }
         addBoard(board);
-        
+
         const todo = {
             cat_id: nanoid(),
             board_id: board.board_id,
@@ -60,6 +64,12 @@ const CreateBoard = () => {
             name: 'In Progress',
             color: "#f0e7f6"
         }
+        const blocked = {
+            cat_id: nanoid(),
+            board_id: board.board_id,
+            name: 'Blocked',
+            color: "#ffdce0"
+        }
         const done = {
             cat_id: nanoid(),
             board_id: board.board_id,
@@ -68,6 +78,7 @@ const CreateBoard = () => {
         }
         addCategory(todo);
         addCategory(inProgress);
+        addCategory(blocked);
         addCategory(done);
 
         form.reset();

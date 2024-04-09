@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useAuthStore } from '@/store/auth';
 import { useNavigate, Outlet } from 'react-router-dom';
 import Navbar from '@/components/dashboard/Navbar';
 import CreateBoard from '@/components/dashboard/CreateBoard';
+import { useAuthStore } from '@/store/auth';
 import { useModal } from '@/store/modal';
 
 const DashboardLayout = () => {
@@ -13,11 +13,11 @@ const DashboardLayout = () => {
             if (!email) navigate("/");
       }, [email, navigate])
       return (
-            <>
+            <div className='h-[91vh]'>
                   <Navbar />
                   {isOpen && <CreateBoard />}
                   <Outlet />
-            </>
+            </div>
       )
 }
 
