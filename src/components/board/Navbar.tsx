@@ -15,7 +15,7 @@ const Navbar = () => {
                 <div className='text-xl font-semibold'>Kraftbase Kanban</div>
                 <Input className='w-1/2' placeholder={`🔍 Search for tasks using its name or labels`} onChange={(e) => setSearchText(e.target.value)}/>
                 <div className='flex space-x-2'>
-                    <Button variant="outline" onClick={() => openModal("category","")}>Add Category</Button>
+                    <Button variant="outline" onClick={() => openModal("category","",null)}>Add Category</Button>
                     <Button onClick={() => logout()} className='flex gap-x-1'>
                         <LogOut size={17} className='mt-[2px]' />
                         <span>Logout</span>
