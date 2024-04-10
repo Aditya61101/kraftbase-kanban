@@ -38,7 +38,7 @@ const Login = () => {
       function onSubmit(values: z.infer<typeof formSchema>) {
             console.log(values);
             setEmail(values.email);
-            navigate("/dashboard");
+            navigate("/boards");
       }
       return (
             <div className='bg-[#f8f8f8] h-screen w-screen flex items-center justify-center'>
