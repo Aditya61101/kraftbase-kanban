@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -27,9 +27,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { optional, z } from "zod"
 
-import { nanoid } from 'nanoid'
-import { useModal } from "@/store/modal";
 import { X } from "lucide-react";
+import { useModal } from "@/store/modal";
 import { useTaskStore } from "@/store/board";
 import { useParams } from "react-router-dom";
 import { labelColorsArr } from "@/constant";
@@ -46,22 +45,32 @@ const formSchema = z.object({
     labelColor: z.string().optional(),
 })
 
-const AddTask = () => {
+const EditTask = () => {
     const { boardID } = useParams();
 
     const [subTasksInput, setSubTasksInput] = useState<string[]>([]);
     const [labels, setLabels] = useState<string[]>([]);
     const [labelColors, setLabelColors] = useState<string[]>([]);
 
-    const { isOpen, closeModal, cat_id } = useModal();
-    const { addTask } = useTaskStore();
+    const { isOpen, closeModal, task } = useModal();
+    const { updateTask } = useTaskStore();
+
+    useEffect(() => {
+        if (task?.sub_tasks) {
+            setSubTasksInput(task.sub_tasks);
+        }
+        if (task?.labels) {
+            setLabels(task.labels.map((label) => label.name));
+            setLabelColors(task.labels.map((label) => label.color));
+        }
+    }, [task]);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: "",
-            description: "",
-            subTasks: [],
+            title: task?.title??"",
+            description: task?.desc??"",
+            subTasks: task?.sub_tasks??[],
             label: "",
             labelColor: "",
         },
@@ -74,18 +83,17 @@ const AddTask = () => {
         form.setValue('labelColor', '');
     }
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
-        const task = {
-            task_id: nanoid(),
-            cat_id: cat_id as string,
+        const updatedTask = {
+            task_id: task?.task_id as string,
+            cat_id: task?.cat_id as string,
             board_id: boardID as string,
             title: values.title,
             desc: values.description,
             sub_tasks: values?.subTasks,
             labels: labels?.map((label, index) => ({ name: label, color: labelColors[index] }))
         }
-        console.log(task);
-        addTask(task);
+        console.log(updatedTask);
+        updateTask(updatedTask);
 
         form.reset();
         closeModal();
@@ -94,7 +102,7 @@ const AddTask = () => {
         <Dialog open={isOpen} onOpenChange={() => closeModal()}>
             <DialogContent className="sm:max-w-md overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle className="text-2xl text-center font-bold">Add Task</DialogTitle>
+                    <DialogTitle className="text-2xl text-center font-bold">Edit Task</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -105,7 +113,7 @@ const AddTask = () => {
                                 <FormItem>
                                     <FormLabel>Title</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Enter title of the board" {...field} type='text' />
+                                        <Input placeholder="Enter title of the board" {...field} type='text'/>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -200,7 +208,7 @@ const AddTask = () => {
                             ))}
                         </div>}
                         <Button className="w-full" type="submit" variant="default">
-                            Add
+                            Edit
                         </Button>
                     </form>
                 </Form>
@@ -209,4 +217,4 @@ const AddTask = () => {
     )
 }
 
-export default AddTask;
+export default EditTask;

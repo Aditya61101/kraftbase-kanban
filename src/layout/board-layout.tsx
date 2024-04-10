@@ -5,6 +5,7 @@ import { useModal } from '@/store/modal';
 import Navbar from '@/components/board/Navbar';
 import AddCategory from '@/components/board/AddCategory';
 import AddTask from '@/components/board/AddTask';
+import EditTask from '@/components/board/EditTask';
 
 const BoardLayout = () => {
     const navigate = useNavigate();
@@ -16,8 +17,9 @@ const BoardLayout = () => {
     return (
         <div className='h-[91vh]'>
             <Navbar />
-            {isOpen && type==="category" && <AddCategory />}
-            {isOpen && type==="task" && <AddTask />}
+            {isOpen && type === "category" && <AddCategory />}
+            {isOpen && type === "create-task" && <AddTask />}
+            {isOpen && type === "edit-task" && <EditTask />}
             <Outlet />
         </div>
     )

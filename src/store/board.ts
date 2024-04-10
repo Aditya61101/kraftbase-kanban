@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 
 export type Board = {
     board_id: string;
-    email_id:string;
+    email_id: string;
     title: string;
     desc?: string;
 };
@@ -20,6 +20,7 @@ export type Label = {
 export type Task = {
     task_id: string;
     cat_id: string;
+    board_id: string;
     title: string;
     desc?: string;
     sub_tasks?: string[];
@@ -119,3 +120,12 @@ export const useTaskStore = create<TaskStore>()(
         { name: "task-storage" }
     )
 );
+
+interface SearchStore {
+    searchText: string;
+    setSearchText: (searchText: string) => void;
+}
+export const useSearchText = create<SearchStore>((set) => ({
+    searchText: "",
+    setSearchText: (searchText: string) => set({ searchText }),
+}));

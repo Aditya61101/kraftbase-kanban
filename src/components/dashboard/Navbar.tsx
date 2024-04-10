@@ -11,7 +11,7 @@ const Navbar = () => {
                   <nav className='bg-white p-3 sticky flex justify-between items-center shadow-lg'>
                         <div className='text-xl font-semibold'>Kraftbase Kanban</div>
                         <div className='flex space-x-5'>
-                              <Button variant="outline" onClick={() => openModal("board","")}>Create Board</Button>
+                              <Button variant="outline" onClick={() => openModal("board","",null)}>Create Board</Button>
                               <Button onClick={() => logout()} className='flex gap-x-1'>
                                     <LogOut size={17} className='mt-[2px]' />
                                     <span>Logout</span>

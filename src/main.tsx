@@ -2,10 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Login from './pages/login/index.tsx'
-import Dashboard from './pages/dashboard/index.tsx'
 import DashboardLayout from './layout/dashboard-layout.tsx'
 import BoardLayout from './layout/board-layout.tsx'
+import Login from './pages/login/index.tsx'
+import Dashboard from './pages/dashboard/index.tsx'
 import BoardPage from './pages/board/index.tsx'
 
 const router = createBrowserRouter([
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   {
     element: <DashboardLayout />,
     children: [
-      { path: '/dashboard', element: <Dashboard /> },
+      { path: '/boards', element: <Dashboard /> },
     ]
   },
   {
