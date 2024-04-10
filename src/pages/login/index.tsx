@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { useNavigate } from "react-router-dom"
 import { useAuthStore } from "@/store/auth"
+import { useEffect } from "react"
 
 const formSchema = z.object({
       email: z.string().email({
@@ -25,7 +26,11 @@ const formSchema = z.object({
 })
 const Login = () => {
       const navigate = useNavigate();
-      const { setEmail } = useAuthStore();
+      const { email, setEmail } = useAuthStore();
+      
+      useEffect(() => {
+            if (email) navigate("/boards");
+      }, [email, navigate])
 
       const form = useForm<z.infer<typeof formSchema>>({
             resolver: zodResolver(formSchema),
