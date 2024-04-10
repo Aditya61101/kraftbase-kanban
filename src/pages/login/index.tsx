@@ -41,7 +41,6 @@ const Login = () => {
       })
 
       function onSubmit(values: z.infer<typeof formSchema>) {
-            console.log(values);
             setEmail(values.email);
             navigate("/boards");
       }

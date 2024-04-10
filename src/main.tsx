@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import DashboardLayout from './layout/dashboard-layout.tsx'
 import BoardLayout from './layout/board-layout.tsx'
-import Login from './pages/login/index.tsx'
-import Dashboard from './pages/dashboard/index.tsx'
-import BoardPage from './pages/board/index.tsx'
+import { LoginPage, BoardPage, BoardsPage } from "@/pages/index"
+import { Loader } from 'lucide-react'
 
 const router = createBrowserRouter([
-  { path: '/', element: <Login /> },
+  { path: '/', element: <LoginPage /> },
   {
     element: <DashboardLayout />,
     children: [
-      { path: '/boards', element: <Dashboard /> },
+      { path: '/boards', element: <BoardsPage /> },
     ]
   },
   {
@@ -21,10 +20,13 @@ const router = createBrowserRouter([
     children: [
       { path: '/board/:boardID', element: <BoardPage /> },
     ]
-  }
+  },
+  { path: '*', element: <Navigate to="/" replace /> }
 ])
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Suspense fallback={<Loader size={30} />}>
+      <RouterProvider router={router} />
+    </Suspense>
   </React.StrictMode>,
 )
