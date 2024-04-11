@@ -74,25 +74,25 @@ export const useCategoryStore = create<CategoryStore>()(
 
             setTasks: (tasks, cat_id) => set((state) => {
                 const category = state.categories[cat_id];
-                if (!category) return;
+                if (!category) return state;
                 category.tasks = tasks;
                 return { categories: { ...state.categories, [cat_id]: category } };
             }),
             addTask: (task) => set((state) => {
                 const category = state.categories[task.cat_id];
-                if (!category) return;
+                if (!category) return state;
                 category.tasks?.push(task);
                 return { categories: { ...state.categories, [task.cat_id]: category } };
             }),
             updateTask: (task) => set((state) => {
                 const category = state.categories[task.cat_id];
-                if (!category) return;
+                if (!category) return state;
                 category.tasks = category.tasks?.map((t) => t.task_id === task.task_id ? task : t);
                 return { categories: { ...state.categories, [task.cat_id]: category } };
             }),
             deleteTask: (task_id, cat_id) => set((state) => {
                 const category = state.categories[cat_id];
-                if (!category) return;
+                if (!category) return state;
                 category.tasks = category.tasks.filter((t) => t.task_id !== task_id);
                 return { categories: { ...state.categories, [cat_id]: category } };
             }),

@@ -1,14 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Droppable } from 'react-beautiful-dnd';
+import { Droppable, DroppableProps } from 'react-beautiful-dnd';
 
-// interface StrictModeDroppableProps extends Omit<DroppableProps, 'children'> {
-//     children: (provided: DroppableProvided) => ReactNode;
-// }
 
-const StrictModeDroppable = ({ children, ...props }) => {
-
-    // console.log({children, props});
-    
+const StrictModeDroppable = ({ children, droppableId }: DroppableProps) => {
     const [enabled, setEnabled] = useState(false);
     useEffect(() => {
         const animation = requestAnimationFrame(() => setEnabled(true));
@@ -20,7 +14,7 @@ const StrictModeDroppable = ({ children, ...props }) => {
     }, []);
 
     if (!enabled) return null;
-    return <Droppable droppableId={props.droppableId} {...props}>{children}</Droppable>;
+    return <Droppable droppableId={droppableId}>{children}</Droppable>;
 };
 
 export default StrictModeDroppable;
