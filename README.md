@@ -26,6 +26,30 @@ This project is a Kanban board application built using React, Vite, Typescript a
 6. Search and filter tasks by title and labels
 7. Add, Delete, Edit labels in the edit task form
 
+## Approach to the project
+First, I gathered all the packages that I would need to create the project. Then I created the login page along with a Zustand store for it to store the email ID of the user. It has very basic login functionality, as it doesn't involve any backend.
+
+Next I created a fully responsive board interface. The interface has an "add board" button to add new boards. I created a store for boards that has actions like addBoard and deleteBoard.
+Each board has a delete icon and a navigate icon to direct the user to a specific board.
+
+On the board page, we have four different categories by default. The user can add, delete, or edit the categories.
+Each category has a plus button beside it, which is used to add a task. The task gets added directly into that category and gets updated in the global state as well using the addTask action implemented using Zustand.
+The task can be edited as well as deleted using the editTask and deleteTask actions.
+
+Next, I implemented search and filter functionality; it can filter tasks based on their title as well as the labels used as mentioned in the requirements.
+
+Next, I implemented the drag-and-drop functionality. Before implementing, I have to go through its documentation to learn about draggable, droppable, and dragDropContext.
+I have implemented a list of tasks within the category and among the categories as well.
+
+## Challenges faced
+
+1. The first challenge was to define what things and in which way they had to be stored in Zustand. This challenge took a lot of time. I have to go through the Zustand documentation to know how to persist the data in local storage.
+2. Another challenge was implementing edit task functionality. I had to go through the documentation of the React Hook Form to understand how to implement it.
+3. The main challenge was to implement the drag-and-drop functionality. I had to go through the documentation of React Beautiful DND to understand how it works, what its key components are, and how to implement it. The StrictMode warning was coming because of the react-beautiful-dnd library. I had to go to StackOverflow and watch some tutorials to get rid of it. The dragEnd function was also tedious to implement.
+4. The last challenge was to implement search and filter functionality. I used global state to extract the search text, then filtered all the tasks based on it and displayed them.
+
+
+
 
 
 
