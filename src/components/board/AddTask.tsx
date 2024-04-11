@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
     Dialog,
     DialogContent,
@@ -22,17 +23,18 @@ import {
 } from "@/components/ui/select"
 import { Input } from '@/components/ui/input'
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { optional, z } from "zod"
 
-import { nanoid } from 'nanoid'
 import { useModal } from "@/store/modal";
-import { X } from "lucide-react";
-import { useTaskStore } from "@/store/board";
-import { useParams } from "react-router-dom";
+import { useCategoryStore } from "@/store/board";
+//utilities
+import { nanoid } from 'nanoid'
 import { labelColorsArr } from "@/constant";
+import { X } from "lucide-react";
 
 const formSchema = z.object({
     title: z.string().min(3, {
@@ -54,7 +56,7 @@ const AddTask = () => {
     const [labelColors, setLabelColors] = useState<string[]>([]);
 
     const { isOpen, closeModal, cat_id } = useModal();
-    const { addTask } = useTaskStore();
+    const { addTask } = useCategoryStore();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -89,6 +91,10 @@ const AddTask = () => {
 
         form.reset();
         closeModal();
+        toast({
+            title:"Task Added",
+            variant:"success"
+        });
     }
     return (
         <Dialog open={isOpen} onOpenChange={() => closeModal()}>

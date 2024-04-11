@@ -1,8 +1,8 @@
+import { useMemo } from 'react';
 import NoBoard from '@/components/dashboard/NoBoard';
 import BoardCard from '@/components/dashboard/BoardCard';
 import { useAuthStore } from '@/store/auth';
 import { useBoardStore } from '@/store/board';
-import { useMemo } from 'react';
 
 const Dashboard = () => {
       const { boards } = useBoardStore();

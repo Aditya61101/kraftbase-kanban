@@ -3,7 +3,7 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import {
     Form,
     FormControl,
@@ -11,9 +11,10 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
-import { Input } from '@/components/ui/input'
+} from "@/components/ui/form";
+import { Input } from '@/components/ui/input';
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -56,25 +57,29 @@ const CreateBoard = () => {
             cat_id: nanoid(),
             board_id: board.board_id,
             name: 'Not started',
-            color: "#e1e4e8"
+            color: "#e1e4e8",
+            tasks:[]
         }
         const inProgress = {
             cat_id: nanoid(),
             board_id: board.board_id,
             name: 'In Progress',
-            color: "#f0e7f6"
+            color: "#f0e7f6",
+            tasks:[]
         }
         const blocked = {
             cat_id: nanoid(),
             board_id: board.board_id,
             name: 'Blocked',
-            color: "#ffdce0"
+            color: "#ffdce0",
+            tasks:[]
         }
         const done = {
             cat_id: nanoid(),
             board_id: board.board_id,
             name: 'Done',
-            color: "#cbdfd8"
+            color: "#cbdfd8",
+            tasks:[]
         }
         addCategory(todo);
         addCategory(inProgress);
@@ -83,6 +88,10 @@ const CreateBoard = () => {
 
         form.reset();
         closeModal();
+        toast({
+            title:"Board Created",
+            variant:"success"
+        })
     }
     return (
         <Dialog open={isOpen} onOpenChange={() => closeModal()}>

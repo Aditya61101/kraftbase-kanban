@@ -6,6 +6,7 @@ import DashboardLayout from './layout/dashboard-layout.tsx'
 import BoardLayout from './layout/board-layout.tsx'
 import { LoginPage, BoardPage, BoardsPage } from "@/pages/index"
 import { Loader } from 'lucide-react'
+import { Toaster } from '@/components/ui/toaster'
 
 const router = createBrowserRouter([
   { path: '/', element: <LoginPage /> },
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Suspense fallback={<Loader size={30} />}>
       <RouterProvider router={router} />
+      <Toaster/>
     </Suspense>
   </React.StrictMode>,
 )

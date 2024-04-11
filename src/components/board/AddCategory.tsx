@@ -16,14 +16,15 @@ import {
 } from "@/components/ui/form"
 import { Input } from '@/components/ui/input'
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { nanoid } from 'nanoid'
 import { useModal } from "@/store/modal";
 import { useCategoryStore } from "@/store/board";
+import { nanoid } from 'nanoid'
 import { colors } from "@/constant";
 
 const formSchema = z.object({
@@ -48,12 +49,17 @@ const AddCategory = () => {
             cat_id: nanoid(),
             board_id: boardID as string,
             name: values.name,
-            color: colors[color]
+            color: colors[color],
+            tasks: []
         }
         addCategory(category);
 
         form.reset();
         closeModal();
+        toast({
+            title:"Category Added",
+            variant:"success"
+        });
     }
     return (
         <Dialog open={isOpen} onOpenChange={() => closeModal()}>

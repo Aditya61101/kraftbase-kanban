@@ -8,14 +8,14 @@ import { useModal } from '@/store/modal';
 const DashboardLayout = () => {
       const navigate = useNavigate();
       const { email } = useAuthStore();
-      const { isOpen } = useModal();
+      const { isOpen, type } = useModal();
       useEffect(() => {
             if (!email) navigate("/");
       }, [email, navigate])
       return (
             <div className='h-[91vh]'>
                   <Navbar />
-                  {isOpen && <CreateBoard />}
+                  {isOpen && type==="board" && <CreateBoard />}
                   <Outlet />
             </div>
       )

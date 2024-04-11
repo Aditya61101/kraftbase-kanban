@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select"
 import { Input } from '@/components/ui/input'
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -29,7 +30,7 @@ import { optional, z } from "zod"
 
 import { X } from "lucide-react";
 import { useModal } from "@/store/modal";
-import { useTaskStore } from "@/store/board";
+import { useCategoryStore } from "@/store/board";
 import { useParams } from "react-router-dom";
 import { labelColorsArr } from "@/constant";
 
@@ -53,7 +54,7 @@ const EditTask = () => {
     const [labelColors, setLabelColors] = useState<string[]>([]);
 
     const { isOpen, closeModal, task } = useModal();
-    const { updateTask } = useTaskStore();
+    const { updateTask } = useCategoryStore();
 
     useEffect(() => {
         if (task?.sub_tasks) {
@@ -94,9 +95,12 @@ const EditTask = () => {
         }
         console.log(updatedTask);
         updateTask(updatedTask);
-
         form.reset();
         closeModal();
+        toast({
+            title:"Task updated",
+            variant:"success"
+        });
     }
     return (
         <Dialog open={isOpen} onOpenChange={() => closeModal()}>
