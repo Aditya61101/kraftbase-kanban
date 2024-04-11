@@ -44,7 +44,7 @@ I have implemented a list of tasks within the category and among the categories 
 ## Challenges faced
 
 1. The first challenge was to define what things and in which way they had to be stored in Zustand. This challenge took a lot of time. I have to go through the Zustand documentation to know how to persist the data in local storage.
-2. Another challenge was implementing edit task functionality. I had to go through the documentation of the React Hook Form to understand how to implement it.
+2. Another challenge was implementing add-task functionality, especially to dynamically render input boxes for adding sub-tasks. I had to go through the documentation of the React Hook Form to understand how to implement it.
 3. The main challenge was to implement the drag-and-drop functionality. I had to go through the documentation of React Beautiful DND to understand how it works, what its key components are, and how to implement it. The StrictMode warning was coming because of the react-beautiful-dnd library. I had to go to StackOverflow and watch some tutorials to get rid of it. The dragEnd function was also tedious to implement.
 4. The last challenge was to implement search and filter functionality. I used global state to extract the search text, then filtered all the tasks based on it and displayed them.
 
