@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { CirclePlus, Trash2 } from 'lucide-react';
+import { CirclePlus, Pencil, Trash2 } from 'lucide-react';
 import { Category, useBoardStore, useCategoryStore, useSearchText } from "@/store/board";
 import { useModal } from "@/store/modal";
 import TaskCard from "@/components/board/TaskCard";
@@ -71,7 +71,7 @@ const BoardPage = () => {
         }
         //if the searchText is not empty, then we filter the tasks based on the searchText
         const filteredArr = cat.tasks?.filter((task) => task.title.toLowerCase().includes(searchText.toLowerCase()) || task?.labels?.some((label) => label.name.toLowerCase().includes(searchText.toLowerCase())));
-        if (filteredArr.length === 0){
+        if (filteredArr.length === 0) {
             setNotFound(true);
             return;
         }
@@ -99,6 +99,7 @@ const BoardPage = () => {
                                         <div className="flex items-center gap-x-2 rounded-3xl px-3 py-[2px] text-center w-fit" style={{ backgroundColor: cat.color }}>
                                             <p className="font-semibold text-[#434445] text-sm">{cat.name}</p>
                                             <CirclePlus size={15} onClick={() => openModal("create-task", cat.cat_id, null)} className="cursor-pointer mt-[2px]" />
+                                            <Pencil size={15} onClick={() => openModal("edit-category", cat.cat_id, null)} className="cursor-pointer mt-[2px]" />
                                             <Trash2 size={15} onClick={() => deleteCategory(cat.cat_id)} className="cursor-pointer mt-[2px]" />
                                         </div>
                                         <div className="flex flex-col gap-y-3 mt-4">

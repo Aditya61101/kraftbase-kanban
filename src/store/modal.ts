@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Task } from "./board";
 
-export type ModalType = "board" | "create-task" | "edit-task" | "category";
+export type ModalType = "board" | "create-task" | "edit-task" | "category"| "edit-category";
 interface ModalStore {
     type: ModalType | null;
     cat_id?: string|null;

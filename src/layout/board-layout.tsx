@@ -6,6 +6,7 @@ import Navbar from '@/components/board/Navbar';
 import AddCategory from '@/components/board/AddCategory';
 import AddTask from '@/components/board/AddTask';
 import EditTask from '@/components/board/EditTask';
+import EditCategory from '@/components/board/EditCategory';
 
 const BoardLayout = () => {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ const BoardLayout = () => {
             {isOpen && type === "category" && <AddCategory />}
             {isOpen && type === "create-task" && <AddTask />}
             {isOpen && type === "edit-task" && <EditTask />}
+            {isOpen && type === "edit-category" && <EditCategory />}
             <Outlet />
         </div>
     )

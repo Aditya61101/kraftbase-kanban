@@ -51,6 +51,7 @@ interface CategoryStore {
     categories: Record<string, Category>;
     setCategories: (categories: Record<string, Category>) => void;
     addCategory: (category: Category) => void;
+    updateCategory: (cat_id:string, name:string) => void;
     deleteCategory: (cat_id: string) => void;
     setTasks: (tasks: Task[], cat_id: string) => void;
     addTask: (task: Task) => void;
@@ -66,6 +67,11 @@ export const useCategoryStore = create<CategoryStore>()(
             addCategory: (category) => set((state) => ({
                 categories: { ...state.categories, [category.cat_id]: category }
             })),
+            updateCategory: (name, cat_id) => set((state) => {
+                const category = state.categories[cat_id];
+                category.name=name;
+                return { categories: { ...state.categories, [cat_id]: category } };
+            }),
             deleteCategory: (cat_id) => set((state) => {
                 const newCategories = { ...state.categories };
                 delete newCategories[cat_id];
