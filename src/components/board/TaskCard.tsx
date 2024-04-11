@@ -55,8 +55,8 @@ const TaskCard = ({ title, desc, sub_tasks, labels, task_id, cat_id, board_id, i
                         </div>
                     ))}
                     <div className='flex flex-wrap gap-x-1 mt-3'>
-                        {labels?.map((label) => (
-                            <div className='rounded-md px-2 py-1' style={{ backgroundColor: label.color }}>
+                        {labels?.map((label,i) => (
+                            <div key={i} className='rounded-md px-2 py-1' style={{ backgroundColor: label.color }}>
                                 <p className='text-sm font-medium'>{label.name}</p>
                             </div>
                         ))}
