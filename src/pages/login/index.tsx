@@ -50,7 +50,7 @@ const Login = () => {
       }
       return (
             <div className='bg-[#f8f8f8] h-screen w-screen flex items-center justify-center'>
-                  <div className='bg-white border-2 border-[#dddddd] rounded-lg shadow-md w-[25%] p-5'>
+                  <div className='bg-white border-2 border-[#dddddd] rounded-lg shadow-md p-7'>
                         <p className='text-2xl font-semibold mb-3'>Login to Kraftbase Kanban</p>
                         <Form {...form}>
                               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
