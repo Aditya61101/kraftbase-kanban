@@ -2,6 +2,20 @@
 
 This project is a Kanban board application built using React, Vite, Typescript and React Beautiful DND for drag-and-drop functionality, allowing users to manage tasks across different categories.
 
+## How to run the project locally
+1. Clone the repository
+2. Make sure you have installed the latest version of Node.js; Run `npm install` to install the dependencies
+3. Run `npm run dev` to start the development server
+4. Open [http://localhost:5173](http://localhost:5173) to view it in the browser
+
+## Tech stack used
+1. React.js + Vite + Typescript for the frontend
+2. React Beautiful DND for drag-and-drop functionality
+3. React Router Dom for routing
+4. React Hook Form + zod for form validation
+5. Tailwind-css + shadcn/ui for styling
+6. Zustand for state management
+
 ## Functionalities
 
 1. Login and logout Functionality
