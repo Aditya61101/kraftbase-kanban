@@ -7,7 +7,7 @@ import { useBoardStore } from '@/store/board';
 const Dashboard = () => {
       const { boards } = useBoardStore();
       const { email } = useAuthStore();
-      const userBoards = useMemo(() => boards.filter((board) => board.email_id === email), [boards, email]);
+      const userBoards = useMemo(() => Object.values(boards).filter((board) => board.email_id === email), [boards, email]);
       return (
             <div className="bg-[#f8f8f8] h-full px-4 pt-8">
                   {userBoards.length === 0 ? (

@@ -30,18 +30,24 @@ export type Category = {
 }
 
 interface BoardStore {
-    boards: Board[];
-    setBoards: (boards: Board[]) => void;
+    boards: Record<string,Board>;
+    setBoards: (boards: Record<string,Board>) => void;
     addBoard: (board: Board) => void;
     deleteBoard: (board_id: string) => void;
 }
 export const useBoardStore = create<BoardStore>()(
     persist(
         (set) => ({
-            boards: [],
+            boards: {},
             setBoards: (boards) => set({ boards }),
-            addBoard: (board) => set((state) => ({ boards: [...state.boards, board] })),
-            deleteBoard: (board_id) => set((state) => ({ boards: state.boards.filter((b) => b.board_id !== board_id) })),
+            addBoard: (board) => set((state) => ({
+                boards: { ...state.boards, [board.board_id]: board }
+            })),
+            deleteBoard: (board_id) => set((state) => {
+                const newBoards = { ...state.boards };
+                delete newBoards[board_id];
+                return { boards: newBoards };
+            }),
         }),
         { name: "board-storage" }
     )

@@ -18,13 +18,11 @@ const BoardPage = () => {
 
     // check if the board exists
     useEffect(() => {
-        if (!boards.some((board) => board.board_id === boardID)) navigate("/boards");
+        console.log(boards[boardID as string]);
+        if (boardID === undefined || !boards[boardID]) navigate("/boards");
     }, [boardID, navigate, boards]);
 
     const [searchedTasks, setSearchedTasks] = useState<Task[]>([]);
-
-    // get the board details
-    const board = useMemo(() => boards.find((board) => board.board_id === boardID), [boardID, boards]);
 
     // get all the categories of the board
     const cats = useMemo(() => {
@@ -46,7 +44,7 @@ const BoardPage = () => {
             task.labels?.some((label) => label.name.toLowerCase().includes(searchText.toLowerCase()))
         );
         setSearchedTasks(filteredArr);
-    },[searchText, boardTasks]);
+    }, [searchText, boardTasks]);
 
     //function to handle drag and drop of tasks
     const handleDragEnd = (result: DropResult) => {
@@ -75,16 +73,16 @@ const BoardPage = () => {
     let content = null;
     if (boardTasks.length === 0) {
         content = <div className="text-center mt-7"><p className="font-semibold text-lg">No tasks found</p> <p>Create tasks by clicking on the plus button next to each category!</p> </div>
-    } else if (searchedTasks.length===0) {
+    } else if (searchedTasks.length === 0) {
         content = <div className="text-center mt-7"><p className="font-semibold text-lg">No tasks found</p> <p>Try searching for something else!</p> </div>
     }
-    
+
     return (
         <div className="h-full px-5 pt-7">
             <div className="flex items-center justify-between">
                 <div className="break-all overflow-wrap">
-                    <p className="font-bold text-xl lg:text-3xl">{board?.title}</p>
-                    <p className=" text-[#5a5a65] mt-1">{board?.desc}</p>
+                    <p className="font-bold text-xl lg:text-3xl">{boards[boardID as string].title}</p>
+                    <p className=" text-[#5a5a65] mt-1">{boards[boardID as string].desc}</p>
                 </div>
                 <Button className='block lg:hidden' size={"sm"} variant="outline" onClick={() => openModal("category", "", null)}>Add Category</Button>
             </div>
